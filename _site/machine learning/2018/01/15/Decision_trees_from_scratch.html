@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Decision Tree from the Scratch | rakend dubba</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Decision Tree from the Scratch" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Python algorithm built from the scratch for a simple Decision Tree." />
+<meta property="og:description" content="Python algorithm built from the scratch for a simple Decision Tree." />
+<link rel="canonical" href="http://0.0.0.0:4000/machine%20learning/2018/01/15/Decision_trees_from_scratch.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/machine%20learning/2018/01/15/Decision_trees_from_scratch.html" />
+<meta property="og:site_name" content="rakend dubba" />
+<meta property="og:image" content="http://0.0.0.0:4000/images/decision_tree.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-01-15T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Python algorithm built from the scratch for a simple Decision Tree.","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/machine%20learning/2018/01/15/Decision_trees_from_scratch.html"},"@type":"BlogPosting","url":"http://0.0.0.0:4000/machine%20learning/2018/01/15/Decision_trees_from_scratch.html","headline":"Decision Tree from the Scratch","dateModified":"2018-01-15T00:00:00-06:00","datePublished":"2018-01-15T00:00:00-06:00","image":"http://0.0.0.0:4000/images/decision_tree.png","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/feed.xml" title="rakend dubba" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Decision Tree from the Scratch | rakend dubba</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Decision Tree from the Scratch" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Python algorithm built from the scratch for a simple Decision Tree." />
+<meta property="og:description" content="Python algorithm built from the scratch for a simple Decision Tree." />
+<link rel="canonical" href="http://0.0.0.0:4000/machine%20learning/2018/01/15/Decision_trees_from_scratch.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/machine%20learning/2018/01/15/Decision_trees_from_scratch.html" />
+<meta property="og:site_name" content="rakend dubba" />
+<meta property="og:image" content="http://0.0.0.0:4000/images/decision_tree.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-01-15T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Python algorithm built from the scratch for a simple Decision Tree.","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/machine%20learning/2018/01/15/Decision_trees_from_scratch.html"},"@type":"BlogPosting","url":"http://0.0.0.0:4000/machine%20learning/2018/01/15/Decision_trees_from_scratch.html","headline":"Decision Tree from the Scratch","dateModified":"2018-01-15T00:00:00-06:00","datePublished":"2018-01-15T00:00:00-06:00","image":"http://0.0.0.0:4000/images/decision_tree.png","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/feed.xml" title="rakend dubba" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+<script type="text/javascript">
+require.config({
+  paths: {
+    jquery: 'https://code.jquery.com/jquery-3.5.0.min',
+    plotly: 'https://cdn.plot.ly/plotly-latest.min'
+  },
+
+  shim: {
+    plotly: {
+      deps: ['jquery'],
+      exports: 'plotly'
+    }
+  }
+});
+</script>
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">rakend dubba</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Decision Tree from the Scratch</h1><p class="page-description">Python algorithm built from the scratch for a simple Decision Tree.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-01-15T00:00:00-06:00" itemprop="datePublished">
+        Jan 15, 2018
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#machine learning">machine learning</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/rakendd/blog/tree/master/_notebooks/2018-01-15-Decision_trees_from_scratch.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h3"><a href="#Load-the-prerequisites">Load the prerequisites </a></li>
+<li class="toc-entry toc-h3"><a href="#Prediction">Prediction </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2018-01-15-Decision_trees_from_scratch.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Python algorithm built from the scratch for a simple Decision Tree.</p>
+<p>Theory and Math behind this post is covered <a href="https://medium.com/@rakendd/building-decision-trees-and-its-math-711862eea1c0">here</a> in Medium post.</p>
+<p>We have just looked at Mathematical working for ID3, this post we will see how to build this in Python from the scratch. We will make it simple by using Pandas dataframes.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Load-the-prerequisites">
+<a class="anchor" href="#Load-the-prerequisites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Load the prerequisites<a class="anchor-link" href="#Load-the-prerequisites"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">eps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">log2</span> <span class="k">as</span> <span class="n">log</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>‘eps’ here is the smallest representable number. At times we get log(0) or 0 in the denominator, to avoid that we are going to use this.</p>
+<p>The dataset is very small one, we’ll just represent that with a dictionary.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Taste'</span><span class="p">:[</span><span class="s1">'Salty'</span><span class="p">,</span><span class="s1">'Spicy'</span><span class="p">,</span><span class="s1">'Spicy'</span><span class="p">,</span><span class="s1">'Spicy'</span><span class="p">,</span><span class="s1">'Spicy'</span><span class="p">,</span><span class="s1">'Sweet'</span><span class="p">,</span><span class="s1">'Salty'</span><span class="p">,</span><span class="s1">'Sweet'</span><span class="p">,</span><span class="s1">'Spicy'</span><span class="p">,</span><span class="s1">'Salty'</span><span class="p">],</span>
+       <span class="s1">'Temperature'</span><span class="p">:[</span><span class="s1">'Hot'</span><span class="p">,</span><span class="s1">'Hot'</span><span class="p">,</span><span class="s1">'Hot'</span><span class="p">,</span><span class="s1">'Cold'</span><span class="p">,</span><span class="s1">'Hot'</span><span class="p">,</span><span class="s1">'Cold'</span><span class="p">,</span><span class="s1">'Cold'</span><span class="p">,</span><span class="s1">'Hot'</span><span class="p">,</span><span class="s1">'Cold'</span><span class="p">,</span><span class="s1">'Hot'</span><span class="p">],</span>
+       <span class="s1">'Texture'</span><span class="p">:[</span><span class="s1">'Soft'</span><span class="p">,</span><span class="s1">'Soft'</span><span class="p">,</span><span class="s1">'Hard'</span><span class="p">,</span><span class="s1">'Hard'</span><span class="p">,</span><span class="s1">'Hard'</span><span class="p">,</span><span class="s1">'Soft'</span><span class="p">,</span><span class="s1">'Soft'</span><span class="p">,</span><span class="s1">'Soft'</span><span class="p">,</span><span class="s1">'Soft'</span><span class="p">,</span><span class="s1">'Hard'</span><span class="p">],</span>
+       <span class="s1">'Eat'</span><span class="p">:[</span><span class="s1">'No'</span><span class="p">,</span><span class="s1">'No'</span><span class="p">,</span><span class="s1">'Yes'</span><span class="p">,</span><span class="s1">'No'</span><span class="p">,</span><span class="s1">'Yes'</span><span class="p">,</span><span class="s1">'Yes'</span><span class="p">,</span><span class="s1">'No'</span><span class="p">,</span><span class="s1">'Yes'</span><span class="p">,</span><span class="s1">'Yes'</span><span class="p">,</span><span class="s1">'Yes'</span><span class="p">]}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will read this with Pandas dataframe</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'Taste'</span><span class="p">,</span><span class="s1">'Temperature'</span><span class="p">,</span><span class="s1">'Texture'</span><span class="p">,</span><span class="s1">'Eat'</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Taste</th>
+      <th>Temperature</th>
+      <th>Texture</th>
+      <th>Eat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Salty</td>
+      <td>Hot</td>
+      <td>Soft</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Spicy</td>
+      <td>Hot</td>
+      <td>Soft</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Spicy</td>
+      <td>Hot</td>
+      <td>Hard</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Spicy</td>
+      <td>Cold</td>
+      <td>Hard</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Spicy</td>
+      <td>Hot</td>
+      <td>Hard</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Sweet</td>
+      <td>Cold</td>
+      <td>Soft</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Salty</td>
+      <td>Cold</td>
+      <td>Soft</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Sweet</td>
+      <td>Hot</td>
+      <td>Soft</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Spicy</td>
+      <td>Cold</td>
+      <td>Soft</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Salty</td>
+      <td>Hot</td>
+      <td>Hard</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have seen from an earlier post we need to find the Entropy and then Information Gain for splitting the data set.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$S = - \sum\limits_{i=1}^N p_i log_2 p_i$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here the fraction is $p_i$, it is the proportion of a number of elements in that split group to the number of elements in the group before splitting(parent group).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We’ll define a function that takes in class (target variable vector) and finds the entropy of that class.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">entropy_node</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#Initialize Entropy</span>
+<span class="n">values</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Eat</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>  <span class="c1">#Unique objects - 'Yes', 'No'</span>
+<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+    <span class="n">fraction</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Eat</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[</span><span class="n">value</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Eat</span><span class="p">)</span>  
+    <span class="n">entropy_node</span> <span class="o">+=</span> <span class="o">-</span><span class="n">fraction</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">fraction</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Summation is taken care of by ‘entropy +=’</p>
+<p>We can check this by supplying our data frame to this function</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">entropy_node</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9709505944546686</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is same as the entropy $(E_o)$ we calculated in the <a href="https://medium.com/@rakendd/building-decision-trees-and-its-math-711862eea1c0">theory post</a>. Now the entropy of the attribute Taste</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">attribute</span> <span class="o">=</span> <span class="s1">'Taste'</span>
+<span class="n">target_variables</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Eat</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>  <span class="c1">#This gives all 'Yes' and 'No'</span>
+<span class="n">variables</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>    <span class="c1">#This gives different features in that attribute (like 'Sweet')</span>
+<span class="n">entropy_attribute</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+    <span class="n">entropy_each_feature</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">target_variable</span> <span class="ow">in</span> <span class="n">target_variables</span><span class="p">:</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">==</span><span class="n">variable</span><span class="p">][</span><span class="n">df</span><span class="o">.</span><span class="n">Eat</span> <span class="o">==</span><span class="n">target_variable</span><span class="p">])</span> <span class="c1">#numerator</span>
+        <span class="n">den</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">==</span><span class="n">variable</span><span class="p">])</span>  <span class="c1">#denominator</span>
+        <span class="n">fraction</span> <span class="o">=</span> <span class="n">num</span><span class="o">/</span><span class="p">(</span><span class="n">den</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span>  <span class="c1">#pi</span>
+        <span class="n">entropy_each_feature</span> <span class="o">+=</span> <span class="o">-</span><span class="n">fraction</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">fraction</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span> <span class="c1">#This calculates entropy for one feature like 'Sweet'</span>
+    <span class="n">fraction2</span> <span class="o">=</span> <span class="n">den</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">entropy_attribute</span> <span class="o">+=</span> <span class="o">-</span><span class="n">fraction2</span><span class="o">*</span><span class="n">entropy_each_feature</span>   <span class="c1">#Sums up all the entropy ETaste</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">abs</span><span class="p">(</span><span class="n">entropy_attribute</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.7609640474436806</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is same as the entropy $E_{Taste}$ we calculated in the <a href="https://medium.com/@rakendd/building-decision-trees-and-its-math-711862eea1c0">theory post</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now the Information Gain is simply</p>
+<p>$IG_{Taste} = entropy_{node} — entropy_{attribute} = 0.21$</p>
+<p>We will continue this for the other attributes ‘Temperature’ and ‘Texture’.</p>
+<p>We just need to replace attribute= ‘Taste’ with ‘Temperature’ and ‘Texture’</p>
+<p>We get,</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$E_{Temperature} = 0.9509$</p>
+<p>$E_{Texture} = 0.9245$</p>
+<p>Then Information Gain,</p>
+<p>$IG_{Temperature} = 0.02$</p>
+<p>$IG_{Texture} = 0.05$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next process:</p>
+<p>We’ll find the winner node, the one with the highest Information Gain. We repeat this process to find which is the attribute we need to consider to split the data at the nodes.</p>
+<p>We build a decision tree based on this. Below is the complete code.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">find_entropy</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">Class</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1">#To make the code generic, changing target variable class name</span>
+    <span class="n">entropy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">Class</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+        <span class="n">fraction</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">Class</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[</span><span class="n">value</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">Class</span><span class="p">])</span>
+        <span class="n">entropy</span> <span class="o">+=</span> <span class="o">-</span><span class="n">fraction</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">fraction</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">entropy</span>
+  
+  
+<span class="k">def</span> <span class="nf">find_entropy_attribute</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">attribute</span><span class="p">):</span>
+  <span class="n">Class</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1">#To make the code generic, changing target variable class name</span>
+  <span class="n">target_variables</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">Class</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>  <span class="c1">#This gives all 'Yes' and 'No'</span>
+  <span class="n">variables</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>    <span class="c1">#This gives different features in that attribute (like 'Hot','Cold' in Temperature)</span>
+  <span class="n">entropy2</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+      <span class="n">entropy</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="k">for</span> <span class="n">target_variable</span> <span class="ow">in</span> <span class="n">target_variables</span><span class="p">:</span>
+          <span class="n">num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">==</span><span class="n">variable</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="n">Class</span><span class="p">]</span> <span class="o">==</span><span class="n">target_variable</span><span class="p">])</span>
+          <span class="n">den</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span><span class="o">==</span><span class="n">variable</span><span class="p">])</span>
+          <span class="n">fraction</span> <span class="o">=</span> <span class="n">num</span><span class="o">/</span><span class="p">(</span><span class="n">den</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span>
+          <span class="n">entropy</span> <span class="o">+=</span> <span class="o">-</span><span class="n">fraction</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">fraction</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span>
+      <span class="n">fraction2</span> <span class="o">=</span> <span class="n">den</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+      <span class="n">entropy2</span> <span class="o">+=</span> <span class="o">-</span><span class="n">fraction2</span><span class="o">*</span><span class="n">entropy</span>
+  <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">entropy2</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">find_winner</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">Entropy_att</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">IG</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+<span class="c1">#         Entropy_att.append(find_entropy_attribute(df,key))</span>
+        <span class="n">IG</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">find_entropy</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">-</span><span class="n">find_entropy_attribute</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">key</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">IG</span><span class="p">)]</span>
+  
+  
+<span class="k">def</span> <span class="nf">get_subtable</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">buildTree</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">tree</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> 
+    <span class="n">Class</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1">#To make the code generic, changing target variable class name</span>
+    
+    <span class="c1">#Here we build our decision tree</span>
+
+    <span class="c1">#Get attribute with maximum information gain</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">find_winner</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    
+    <span class="c1">#Get distinct value of that attribute e.g Salary is node and Low,Med and High are values</span>
+    <span class="n">attValue</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+    
+    <span class="c1">#Create an empty dictionary to create tree    </span>
+    <span class="k">if</span> <span class="n">tree</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>                    
+        <span class="n">tree</span><span class="o">=</span><span class="p">{}</span>
+        <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    
+   <span class="c1">#We make loop to construct a tree by calling this function recursively. </span>
+    <span class="c1">#In this we check if the subset is pure and stops if it is pure. </span>
+
+    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">attValue</span><span class="p">:</span>
+        
+        <span class="n">subtable</span> <span class="o">=</span> <span class="n">get_subtable</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">node</span><span class="p">,</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">clValue</span><span class="p">,</span><span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">subtable</span><span class="p">[</span><span class="s1">'Eat'</span><span class="p">],</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                        
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span><span class="c1">#Checking purity of subset</span>
+            <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">clValue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                                                    
+        <span class="k">else</span><span class="p">:</span>        
+            <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">buildTree</span><span class="p">(</span><span class="n">subtable</span><span class="p">)</span> <span class="c1">#Calling the function recursively </span>
+                   
+    <span class="k">return</span> <span class="n">tree</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we call the buildTree function and print the tree we built.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">buildTree</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{'Taste': {'Salty': {'Texture': {'Hard': 'Yes', 'Soft': 'No'}},
+           'Spicy': {'Temperature': {'Cold': {'Texture': {'Hard': 'No',
+                                                          'Soft': 'Yes'}},
+                                     'Hot': {'Texture': {'Hard': 'Yes',
+                                                         'Soft': 'No'}}}},
+           'Sweet': 'Yes'}}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can see the tree structure is formed based on the priority list to split the data.</p>
+<p>We can write an algorithm to predict using this tree structure.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span><span class="n">tree</span><span class="p">):</span>
+    <span class="c1">#This function is used to predict for any input variable </span>
+    
+    <span class="c1">#Recursively we go through the tree that we built earlier</span>
+
+    <span class="k">for</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>        
+        
+        <span class="n">value</span> <span class="o">=</span> <span class="n">inst</span><span class="p">[</span><span class="n">nodes</span><span class="p">]</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">tree</span><span class="p">[</span><span class="n">nodes</span><span class="p">][</span><span class="n">value</span><span class="p">]</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="mi">0</span>
+            
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="n">prediction</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prediction</span> <span class="o">=</span> <span class="n">tree</span>
+            <span class="k">break</span><span class="p">;</span>                            
+        
+    <span class="k">return</span> <span class="n">prediction</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Prediction">
+<a class="anchor" href="#Prediction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prediction<a class="anchor-link" href="#Prediction"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inst</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>  <span class="c1">#This takes row with index 6</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inst</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Taste          Salty
+Temperature     Cold
+Texture         Soft
+Eat               No
+Name: 6, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can check with our available data.</p>
+<p>We took a row with index 6 from our dataframe to use this for our prediction.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Get prediction</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Taste'</span><span class="p">:</span><span class="s1">'Salty'</span><span class="p">,</span> <span class="s1">'Temperature'</span><span class="p">:</span><span class="s1">'Cold'</span><span class="p">,</span> <span class="s1">'Texture'</span><span class="p">:</span><span class="s1">'Hard'</span><span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inst</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">prediction</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+<span class="n">prediction</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'Yes'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our tree predicted kid will eat this food (which is Salty, Cold and Hard).</p>
+<p>This is a simple tree building algorithm without much control parameters.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Some of the contents here, I am inspired from this book ‘Ensemble machine learning-Ankit Dixit’. I encourage you to read it for further explorations.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Below cell is for styling, ignore it.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">"&lt;style&gt;.container { width:100% !important; }&lt;/style&gt;"</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>.container { width:100% !important; }</style>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/machine%20learning/2018/01/15/Decision_trees_from_scratch.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Technical Blog</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/rakendd" title="rakendd"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/rakendd" title="rakendd"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
